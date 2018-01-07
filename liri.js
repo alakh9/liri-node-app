@@ -45,25 +45,18 @@ function spotifyThisSong(search) {
                     var spotifyResults =
                     "Artist: " + Song[i].artists[0].name + "\n" +
                     "Song: " + Song[i].name + "\n" +
-                    "Album the song is from: " + Song[i].album.name + "\n" +
+                    "Album of the song: " + Song[i].album.name + "\n" +
                     "Preview Url: " + Song[i].preview_url + "\n" + 
                     console.log(spotifyResults);
-                    // log(spotifyResults); // calling log function
                 }
             }
-        }	else {
-            console.log("Error :"+ err);
-            return;
-        }
+        }	
+        
     });
 };
 
-
-
-
 function movieThis(){
 
-        
     console.log(search)
 	if(!search){
         search = "mr+nobody";
@@ -77,12 +70,12 @@ function movieThis(){
 		var movieResults =
 		"Title: " + Movie.Title+"\n"+ 
 		"Year: " + Movie.Year+"\n"+
-        "Imdb Rating: " + Movie.imdbRating+"\n"+
-        "Rotten Tomatoes Rating: " + Movie.Ratings[1].Value+"\n"+
+        "IMDB-Rating: " + Movie.imdbRating+"\n"+
+        "Rotten-Tomatoes-Rating: " + Movie.Ratings[1].Value+"\n"+
 		"Country: " + Movie.Country+"\n"+
 		"Language: " + Movie.Language+"\n"+
 		"Plot: " + Movie.Plot+"\n"+
-		"Actors: " + Movie.Actors+"\n" ;
+		"Actors/Actresses: " + Movie.Actors+"\n" ;
 				
 		console.log(movieResults);
 				
@@ -91,9 +84,14 @@ function movieThis(){
 };
 
 function doWhatItSays(){
-    console.log("dowhatitsays")
-    // if (!error && response.statusCode === 200) {
-    // }
+    fs.readFile("random.txt", "utf8", function(error, data){
+			if (!error) {
+				dwits = data.split(",");
+				spotifyThisSong(dwits[0], dwits[1]);
+			} else {
+				console.log("Error occurred" + error);
+			}
+		});
 }
 
 switch(userCommand) {
